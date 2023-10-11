@@ -4,6 +4,7 @@ import { fetchCount } from './cartAPI';
 const initialState = {
   value: 0,
   status: 'idle',
+  maxCountReached: false,
 };
 
 export const incrementAsync = createAsyncThunk(
@@ -20,7 +21,11 @@ export const counterSlice = createSlice({
   reducers: {
     increment: (state) => {
       state.value += 1;
-    },
+      if(state.value === 10) {
+        state.maxCountReached = true;
+        alert('Max count reached')
+      }
+ },
   },
   extraReducers: (builder) => {
     builder
